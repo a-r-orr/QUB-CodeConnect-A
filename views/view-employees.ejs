@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <%- include('header') %>
+    
     <h1>Employee List</h1>
 
     <% if (employees && employees.length > 0) { %>
@@ -27,11 +27,11 @@
                 <% employees.forEach(employee => { %>
                     <tr>
                         <td><%= employee.name %></td>
-                        <td><%= employee.email %></td>
+                        <td><%= employee.address %></td>
+                        <td><%= employee.salary %></td>
                         <td><%= employee.role %></td>
-                        <td><a href="/employees/<%= employee.id %>">View</a></td>
-                        <td><a href="/employees/update/<%= employee.id %>">Edit</a></td>
-                        <td><a href="/employees/delete/<%= employee.id %>">Delete</a></td>
+                        <td><%= employee.employeeNumber %></td>
+
                     </tr>
                 <% }); %>
             </tbody>
