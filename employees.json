@@ -12,5 +12,12 @@
     "salary": 453435,
     "role": "Manager",
     "employeeNumber": 345353
+  },
+  {
+    "name": "Andy",
+    "address": "Test",
+    "salary": 60000,
+    "role": "Developer",
+    "employeeNumber": 1234536
   }
 ]

@@ -6,6 +6,11 @@ const router = express.Router();
 const EmployeeService = require('../services/employeeService');
 const employeeService = new EmployeeService();
 
+router.get('/', (req,res) => {
+  const employees = employeeService.loadEmployees();
+  res.render('view-employees', { employees: employees });
+});
+
 // Display the Add Employee Form
 router.get('/add', (req, res) => {
   const predefinedRoles = ['Manager', 'Developer', 'Designer', 'QA', 'HR'];
