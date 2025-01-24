@@ -1,17 +1,14 @@
-// routes/employees.js
-
 const express = require('express');
 const router = express.Router();
 
 const EmployeeService = require('../services/employeeService');
 const employeeService = new EmployeeService();
 
-router.get('/', (req,res) => {
+router.get('/', (req, res) => {
   const employees = employeeService.loadEmployees();
   res.render('view-employees', { employees: employees });
 });
 
-// Display the Add Employee Form
 router.get('/add', (req, res) => {
   const predefinedRoles = ['Manager', 'Developer', 'Designer', 'QA', 'HR'];
   res.render('addEmployee', { 
@@ -21,11 +18,9 @@ router.get('/add', (req, res) => {
   });
 });
 
-// Handle Add Employee Form Submission
 router.post('/add', (req, res) => {
   const { name, address, salary, role, employeeNumber } = req.body;
 
-  // Parse numeric fields
   const parsedSalary = parseFloat(salary);
   const parsedEmployeeNumber = parseInt(employeeNumber, 10);
 
@@ -39,7 +34,6 @@ router.post('/add', (req, res) => {
 
   try {
     const createdEmployee = employeeService.createEmployee(employeeData);
-    // Redirect to the Add Employee form with a success message
     res.render('addEmployee', { 
       roles: ['Manager', 'Developer', 'Designer', 'QA', 'HR'], 
       errors: null, 
@@ -47,7 +41,6 @@ router.post('/add', (req, res) => {
       success: `Employee ${createdEmployee.name} added successfully!` 
     });
   } catch (error) {
-    // If there's a validation error, re-render the form with error message and existing data
     const predefinedRoles = ['Manager', 'Developer', 'Designer', 'QA', 'HR'];
     res.render('addEmployee', { 
       roles: predefinedRoles, 
@@ -55,6 +48,16 @@ router.post('/add', (req, res) => {
       formData: employeeData 
     });
   }
+});
+
+router.post('/delete/:id', (req, res) => {
+  const employeeNumber = parseInt(req.params.id, 10);
+  const success = employeeService.deleteEmployee(employeeNumber);
+
+  if (!success) {
+    return res.status(404).send('Employee not found');
+  }
+  res.redirect('/employees');
 });
 
 router.get('/:id', (req, res) => {
