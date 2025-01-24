@@ -19,5 +19,19 @@
     "salary": 60000,
     "role": "Developer",
     "employeeNumber": 1234536
+  },
+  {
+    "name": "Tony",
+    "address": "123 St",
+    "salary": 20,
+    "role": "Manager",
+    "employeeNumber": 56789
+  },
+  {
+    "name": "Test",
+    "address": "svdsdsfidf",
+    "salary": 526,
+    "role": "Manager",
+    "employeeNumber": 567890
   }
 ]

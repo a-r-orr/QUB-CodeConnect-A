@@ -3,7 +3,8 @@
     "id": 1,
     "name": "Shaun",
     "email": "shaun@test.com",
-    "role": "Software Engineer"
+    "role": "Software Engineer",
+    "password": "password123"
   },
   {
     "name": "Andy",
