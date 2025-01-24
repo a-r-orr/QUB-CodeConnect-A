@@ -20,6 +20,13 @@ class EmployeeService {
     }
   }
 
+  // Get an employee by ID
+  getEmployeeById(id) {
+    const employees = this.loadEmployees();
+    console.log(employees);
+    return employees.find(employee => employee.employeeNumber === id);
+  }
+
   // Save employees to the JSON file
   saveEmployees() {
     try {

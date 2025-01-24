@@ -57,4 +57,10 @@ router.post('/add', (req, res) => {
   }
 });
 
+router.get('/:id', (req, res) => {
+  const employee = employeeService.getEmployeeById(parseInt(req.params.id));
+  if (!employee) return res.status(404).send('Employee not found');
+  res.render('employeeDetail', { employee: employee });
+});
+
 module.exports = router;
