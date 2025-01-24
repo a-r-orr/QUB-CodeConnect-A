@@ -74,6 +74,7 @@
   </style>
 </head>
 <body>
+    <%- include('header') %>
   <h1>Employee List</h1>
 
   <% if (employees && employees.length > 0) { %>
@@ -124,6 +125,8 @@
     <button id="toggleDetailsBtn" class="btn btn-toggle">Show Details</button>
   </div>
 
+  <%- include('footer') %>
+  <!-- JavaScript for Toggle Functionality -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const toggleButton = document.getElementById('toggleDetailsBtn');
