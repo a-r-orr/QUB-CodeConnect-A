@@ -68,12 +68,87 @@ nav ul li a:hover {
   margin-right: 200px;
 }
 
-.employee-image {
-  display: flex;
-  width: 100px;
-  border-radius: 50%;
+
+/* Hidden Class */
+.hidden {
+    display: none;
 }
 
-.employee-image img {
-  width: 100px;
+/* Button Container */
+.button-container {
+    margin: 20px 50px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Button Styling */
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* For link-styled buttons */
+    text-align: center;    /* Center text */
+    display: inline-block; /* Ensure proper spacing */
+}
+
+/* Specific Button Styles */
+.btn-toggle {
+    background-color: #283583;
+    color: #fff;
+}
+
+.btn-toggle:hover {
+    background-color: #41679f;
+}
+
+.btn-create {
+    background-color: #61a83f;
+    color: #fff;
+}
+
+.btn-create:hover {
+    background-color: #004631;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 50px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .button-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn {
+        width: 100%;
+    }
+}
+
+/* Center the image and make it round */
+.employee-image {
+  display: block;
+  margin: 0 auto; /* Center horizontally */
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover; /* Crop the image to fit the circle */
+  margin-top: 20px;
 }
