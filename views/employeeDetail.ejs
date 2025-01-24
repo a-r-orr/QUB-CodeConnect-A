@@ -1,40 +1,168 @@
-<!-- index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Information</title>
-    <link rel="stylesheet" href="stylesheets/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Details - <%= employee.name %></title>
+  <style>
+    /* Center the image and make it round */
+    .employee-image {
+      display: block;
+      margin: 0 auto; /* Center horizontally */
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover; /* Crop the image to fit the circle */
+      margin-top: 20px;
+    }
+
+    /* Hidden Class */
+    .hidden {
+      display: none;
+    }
+
+    /* Button Container */
+    .button-container {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center; /* Center the buttons as well */
+    }
+
+    /* Base Button Styling */
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      text-decoration: none; /* For link-styled buttons */
+      text-align: center;    /* Center text */
+      display: inline-block; /* Ensure proper spacing */
+    }
+
+    /* Specific Button Styles */
+    .btn-toggle {
+      background-color: #007BFF;
+      color: #fff;
+    }
+
+    .btn-toggle:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-back {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    .btn-back:hover {
+      background-color: #5a6268;
+    }
+
+    /* Table Styling */
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      table {
+        width: 100%;
+      }
+      .button-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        width: 100%;
+      }
+      .employee-image {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Employee Information</h1>
 
-    <% if (employee) { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Salary</th>
-                    <th>Role</th>
-                    <th>Employee Number</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><%= employee.name %></td>
-                    <td><%= employee.address %></td>
-                    <td><%= employee.salary %></td>
-                    <td><%= employee.role %></td>
-                    <td><%= employee.employeeNumber %></td>
-                </tr>
-            </tbody>
-        </table>
-    <% } else { %>
-        <p>No employee found.</p>
-    <% } %>
-        <a href="/employees">Back to Employees List</a>
-    
+  <h1 style="text-align: center;">Employee Details</h1>
+
+  <% if (employee) { %>
+    <!-- Display a random face from thispersondoesnotexist.com -->
+    <!-- Using a query parameter to reduce caching issues -->
+    <img 
+      src="https://thispersondoesnotexist.com/?<%= Date.now() %>"
+      alt="Random Employee Face"
+      class="employee-image"
+    />
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th class="toggle-column hidden">Address</th>
+          <th class="toggle-column hidden">Salary</th>
+          <th>Role</th>
+          <th class="toggle-column hidden">Employee Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= employee.name %></td>
+          <td class="toggle-column hidden"><%= employee.address %></td>
+          <td class="toggle-column hidden">$<%= employee.salary.toFixed(2) %></td>
+          <td><%= employee.role %></td>
+          <td class="toggle-column hidden"><%= employee.employeeNumber %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No employee found.</p>
+  <% } %>
+
+  <!-- Button Container -->
+  <div class="button-container">
+    <!-- Details hidden by default, so button starts as "Show Details" -->
+    <button id="toggleDetailsBtn" class="btn btn-toggle">Show Details</button>
+    <a href="/employees" class="btn btn-back">Back to Employees List</a>
+  </div>
+
+  <!-- JavaScript for Toggle Functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleButton = document.getElementById('toggleDetailsBtn');
+      const toggleColumns = document.querySelectorAll('.toggle-column');
+
+      // Since columns are hidden, we start with detailsVisible = false
+      let detailsVisible = false;
+
+      toggleButton.addEventListener('click', () => {
+        detailsVisible = !detailsVisible;
+        toggleColumns.forEach(column => {
+          if (detailsVisible) {
+            column.classList.remove('hidden');
+          } else {
+            column.classList.add('hidden');
+          }
+        });
+        toggleButton.textContent = detailsVisible ? 'Hide Details' : 'Show Details';
+      });
+    });
+  </script>
 </body>
 </html>
