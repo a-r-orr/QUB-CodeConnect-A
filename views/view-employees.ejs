@@ -1,47 +1,152 @@
-<!-- index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee List</title>
-    <link rel="stylesheet" href="stylesheets/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee List</title>
+  <style>
+    /* Hidden Class */
+    .hidden {
+        display: none;
+    }
+
+    /* Button Container */
+    .button-container {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    /* Button Styling */
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        text-decoration: none; /* For link-styled buttons */
+        text-align: center;    /* Center text */
+        display: inline-block; /* Ensure proper spacing */
+    }
+
+    /* Specific Button Styles */
+    .btn-toggle {
+        background-color: #007BFF;
+        color: #fff;
+    }
+
+    .btn-toggle:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-create {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .btn-create:hover {
+        background-color: #1e7e34;
+    }
+
+    /* Table Styling */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+        .button-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .btn {
+            width: 100%;
+        }
+    }
+  </style>
 </head>
 <body>
-    
-    <h1>Employee List</h1>
+  <h1>Employee List</h1>
 
-    <% if (employees && employees.length > 0) { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Salary</th>
-                    <th>Role</th>
-                    <th>Employee Number</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% employees.forEach(employee => { %>
-                    <tr>
-                        <td><%= employee.name %></td>
-                        <td><%= employee.address %></td>
-                        <td><%= employee.salary %></td>
-                        <td><%= employee.role %></td>
-                        <td><%= employee.employeeNumber %></td>
-                        <td><a href="/employees/<%= employee.employeeNumber %>">View</a></td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
-    <% } else { %>
-        <p>No employees found.</p>
-    <% } %>
+  <% if (employees && employees.length > 0) { %>
+    <table id="employeeTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <!-- We add 'hidden' class by default so it's hidden initially -->
+          <th class="toggle-column hidden">Address</th>
+          <th class="toggle-column hidden">Salary</th>
+          <th>Role</th>
+          <th class="toggle-column hidden">Employee Number</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% employees.forEach(employee => { %>
+          <tr>
+            <td><%= employee.name %></td>
+            <td class="toggle-column hidden"><%= employee.address %></td>
+            <td class="toggle-column hidden">$<%= employee.salary.toFixed(2) %></td>
+            <td><%= employee.role %></td>
+            <td class="toggle-column hidden"><%= employee.employeeNumber %></td>
+            <td>
+              <a href="/employees/<%= employee.employeeNumber %>" class="btn btn-toggle">View</a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No employees found.</p>
+  <% } %>
 
-    <form action="/employees/add" method="get">
-        <input type="submit" value="Create New Employee">
-    </form> 
+  <form action="/employees/add" method="get">
+    <input type="submit" value="Create New Employee" class="btn btn-create">
+  </form> 
+
+  <!-- Button Container -->
+  <div class="button-container">
+    <!-- Default button text is "Show Details" since details are hidden initially -->
+    <button id="toggleDetailsBtn" class="btn btn-toggle">Show Details</button>
+  </div>
+
+  <!-- JavaScript for Toggle Functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleButton = document.getElementById('toggleDetailsBtn');
+      const toggleColumns = document.querySelectorAll('.toggle-column');
+
+      // detailsVisible = false means columns are hidden initially
+      let detailsVisible = false;
+
+      toggleButton.addEventListener('click', () => {
+        detailsVisible = !detailsVisible;
+
+        toggleColumns.forEach(column => {
+          if (detailsVisible) {
+            column.classList.remove('hidden');
+          } else {
+            column.classList.add('hidden');
+          }
+        });
+
+        toggleButton.textContent = detailsVisible ? 'Hide Details' : 'Show Details';
+      });
+    });
+  </script>
 </body>
 </html>
