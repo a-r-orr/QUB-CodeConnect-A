@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <%- include('header') %>
     <h1>User Information</h1>
 
     <% if (user) { %>
@@ -31,6 +32,6 @@
         <p>No user found.</p>
     <% } %>
 
-    
+    <%- include('footer') %>
 </body>
 </html>

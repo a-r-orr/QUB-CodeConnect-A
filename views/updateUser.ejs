@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body>
+    <%- include('header') %>
     <h1>Update User</h1>
 
     <form action="/users/update/<%= user.id %>" method="post">
@@ -22,5 +23,6 @@
 
         <input type="submit" value="Submit">
     </form> 
+    <%- include('footer') %>
 </body>
 </html>

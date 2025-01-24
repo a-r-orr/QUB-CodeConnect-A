@@ -99,7 +99,7 @@
   </style>
 </head>
 <body>
-
+  <%- include('header') %>
   <h1 style="text-align: center;">Employee Details</h1>
 
   <% if (employee) { %>
@@ -141,6 +141,8 @@
     <button id="toggleDetailsBtn" class="btn btn-toggle">Show Details</button>
     <a href="/employees" class="btn btn-back">Back to Employees List</a>
   </div>
+
+  <%- include('footer') %>
 
   <!-- JavaScript for Toggle Functionality -->
   <script>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body>
+    <%- include('header') %>
     <h1>User List</h1>
 
     <% if (users && users.length > 0) { %>
@@ -42,5 +43,6 @@
     <form action="/users/add" method="get">
         <input type="submit" value="Create New User">
     </form> 
+    <%- include('footer') %>
 </body>
 </html>
