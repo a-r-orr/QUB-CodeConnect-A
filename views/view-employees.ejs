@@ -15,7 +15,6 @@
       <thead>
         <tr>
           <th>Name</th>
-          <!-- We add 'hidden' class by default so it's hidden initially -->
           <th class="toggle-column hidden">Address</th>
           <th class="toggle-column hidden">Salary</th>
           <th>Role</th>
@@ -33,6 +32,15 @@
             <td class="toggle-column hidden"><%= employee.employeeNumber %></td>
             <td>
               <a href="/employees/<%= employee.employeeNumber %>" class="btn btn-toggle">View</a>
+
+              <form 
+                action="/employees/delete/<%= employee.employeeNumber %>" 
+                method="POST" 
+                style="display:inline;" 
+                onsubmit="return confirm('Are you sure you want to delete <%= employee.name %>?');"
+              >
+                <button type="submit" class="btn btn-toggle">Delete</button>
+              </form>
             </td>
           </tr>
         <% }); %>
@@ -46,11 +54,10 @@
     <input type="submit" value="Create New Employee" class="btn btn-create">
   </form> 
 
-  <!-- Button Container -->
   <div class="button-container">
-    <!-- Default button text is "Show Details" since details are hidden initially -->
     <button id="toggleDetailsBtn" class="btn btn-toggle">Show Details</button>
   </div>
+
   <%- include('footer') %>
   <!-- JavaScript for Toggle Functionality -->
   <script>
@@ -58,12 +65,10 @@
       const toggleButton = document.getElementById('toggleDetailsBtn');
       const toggleColumns = document.querySelectorAll('.toggle-column');
 
-      // detailsVisible = false means columns are hidden initially
       let detailsVisible = false;
 
       toggleButton.addEventListener('click', () => {
         detailsVisible = !detailsVisible;
-
         toggleColumns.forEach(column => {
           if (detailsVisible) {
             column.classList.remove('hidden');
@@ -71,7 +76,6 @@
             column.classList.add('hidden');
           }
         });
-
         toggleButton.textContent = detailsVisible ? 'Hide Details' : 'Show Details';
       });
     });
