@@ -2,22 +2,15 @@
   {
     "name": "Andy",
     "address": "Test",
-    "salary": 60000,
+    "salary": 123000,
     "role": "Developer",
-    "employeeNumber": 1234536
+    "employeeNumber": 147
   },
   {
     "name": "Tony",
-    "address": "123 St",
-    "salary": 20,
+    "address": "123 Test St",
+    "salary": 55000,
     "role": "Manager",
-    "employeeNumber": 56789
-  },
-  {
-    "name": "Test",
-    "address": "svdsdsfidf",
-    "salary": 526,
-    "role": "Manager",
-    "employeeNumber": 567890
+    "employeeNumber": 258
   }
 ]

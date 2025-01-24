@@ -34,12 +34,13 @@ router.post('/add', (req, res) => {
 
   try {
     const createdEmployee = employeeService.createEmployee(employeeData);
-    res.render('addEmployee', { 
-      roles: ['Manager', 'Developer', 'Designer', 'QA', 'HR'], 
-      errors: null, 
-      formData: {}, 
-      success: `Employee ${createdEmployee.name} added successfully!` 
-    });
+    // res.render('addEmployee', { 
+    //   roles: ['Manager', 'Developer', 'Designer', 'QA', 'HR'], 
+    //   errors: null, 
+    //   formData: {}, 
+    //   success: `Employee ${createdEmployee.name} added successfully!` 
+    // });
+    res.redirect('/employees/');
   } catch (error) {
     const predefinedRoles = ['Manager', 'Developer', 'Designer', 'QA', 'HR'];
     res.render('addEmployee', { 
